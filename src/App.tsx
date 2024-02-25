@@ -7,7 +7,7 @@ const { Header, Content, Sider } = Layout;
 
 const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
   key,
-  label: `nav ${key}`,
+  label: `Tool - ${key}`,
 }));
 
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
@@ -17,13 +17,13 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
     return {
       key: `sub${key}`,
       icon: React.createElement(icon),
-      label: `subnav ${key}`,
+      label: `Bot - ${key}`,
 
       children: new Array(4).fill(null).map((_, j) => {
         const subKey = index * 4 + j + 1;
         return {
           key: subKey,
-          label: `option${subKey}`,
+          label: `Setting - ${subKey}`,
         };
       }),
     };
@@ -36,7 +36,7 @@ function App() {
   } = theme.useToken();
 
   return (
-    <Layout>
+    <Layout style={{height: 'calc(100vw - 64px)'}}>
       <Header style={{ display: 'flex', alignItems: 'center' }}>
         <div className="demo-logo" />
         <Menu
