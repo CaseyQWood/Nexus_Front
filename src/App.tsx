@@ -2,6 +2,7 @@ import React from 'react';
 import type { MenuProps } from 'antd';
 import {Layout, Menu, theme } from 'antd';
 import Chat from './pages/Chat';
+import Login from './pages/Login';
 import {
   BrowserRouter as Router,
   Routes,
@@ -26,12 +27,12 @@ function App() {
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={['2']}
             items={items1}
             style={{ flex: 1, minWidth: 0 }}
           />
         </Header>
           <Routes>
+            <Route path="/" element={<Login />} />
             <Route path="/chat" element={<Chat />} />
 
           </Routes>

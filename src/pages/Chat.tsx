@@ -1,13 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link
-// } from "react-router-dom";
 
 const {Content, Sider } = Layout;
 
@@ -32,22 +27,50 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
     },
   );
 
+  
+
 export default function Chat() {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
+    const [current, setCurrent] = React.useState('1');
+    
+    const onClick = (e: any) => {
+      console.log('click ', e);
+      setCurrent(e.key);
+    };
+
+    const [openKeys, setOpenKeys] = useState(['sub1']);
+    const rootSubmenuKeys = ['sub1', 'sub2', 'sub1'];
+    const rootSubmenuKeys2 = items2?.map((item) => item?.key);
+
+
+
+    const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
+      console.log('onOpenChange', keys)
+      const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+      if (latestOpenKey && rootSubmenuKeys2?.indexOf(latestOpenKey!) === -1) {
+        setOpenKeys(keys);
+      } else {
+        setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+      }
+    };
+
+
     return (
         <Layout>
-          <Sider width={200} style={{ background: colorBgContainer }}>
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
-              style={{ height: '100%', borderRight: 0 }}
-              items={items2}
-            />
-          </Sider>
+            <Sider onClick={(e) => onClick(e)} width={200} style={{ background: colorBgContainer }}>
+              <Menu
+                mode="inline"
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                openKeys={openKeys}
+                onOpenChange={onOpenChange}
+                style={{ height: '100%', borderRight: 0 }}
+                items={items2}
+              />
+            </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
