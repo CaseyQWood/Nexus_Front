@@ -6,6 +6,20 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
 const {Content, Sider } = Layout;
 
+const messages = [
+  {
+    role: 'assistant',
+    content: 'Hello, how can I help you today?'
+  },
+  {
+    role: 'user',
+    content: 'Hello, how can I help you today?'
+  },
+  {
+    role: 'assistant',
+    content: 'Hello, how can I help you today?'
+  }
+]
 
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     (icon, index) => {
@@ -71,7 +85,7 @@ export default function Chat() {
                 items={items2}
               />
             </Sider>
-          <Layout style={{ padding: '0 24px 24px' }}>
+          <Layout style={{ padding: '0 24px 24px', height: '97%' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
               <Breadcrumb.Item>List</Breadcrumb.Item>
@@ -86,8 +100,20 @@ export default function Chat() {
                 borderRadius: borderRadiusLG,
               }}
             >
-              
-            </Content>
+              <ul>
+                {messages.map((message, index) => (
+                  <li key={index} style={{ display: 'flex', justifyContent: message.role === 'assistant' ? 'flex-start' : 'flex-end' }}>
+                    <div style={{ padding: 8, borderRadius: 8, background: message.role === 'assistant' ? 'white' : 'lightblue', margin: 8 }}>
+                      {message.content}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <form className='chat-input__form glass'>
+                <input type="text" />
+                <button>Send</button>
+              </form>
+\            </Content>
           </Layout>
         </Layout>
     );

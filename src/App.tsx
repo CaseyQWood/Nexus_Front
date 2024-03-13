@@ -12,9 +12,9 @@ import {
 
 const { Header, Content, Sider } = Layout;
 
-const items1: MenuProps['items'] = ['Chat', '2', '3'].map((key) => ({
+const items1: MenuProps['items'] = ['Chat', 'Agents', 'Eval'].map((key) => ({
   key,
-  label: (<Link to={`/${key}`}  >Tool-{key}</Link>),
+  label: (<Link to={`/${key}`}  >{key}</Link>),
 }));
 
 function App() {
